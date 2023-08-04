@@ -4,7 +4,7 @@ import { NavLink, useLocation} from 'react-router-dom'
 
 const Admin_Sidebar = () => {
     const {pathname} = useLocation();
-    const admin_url = ['/admin/employer','/admin/employer/store','/admin/employer/edit','/admin/employer/show']
+    const admin_url = ['/admin/product','/admin/product/store','/admin/product/edit','/admin/product/show']
     const Admin_Skill = ['/admin/skill','/admin/skill/store','/admin/skill/show','/admin/skill/edit']
     const Admin_Document_Type = ['/admin/document-type','/admin/document-type/store','/admin/document-type/show','/admin/document-type/edit']
     const Admin_Compact_Lincence = ['/admin/compact-licence','/admin/compact-licence/store','/admin/compact-licence/edit','/admin/compact-licence/show']
@@ -41,7 +41,7 @@ const Admin_Sidebar = () => {
 
         localStorage.removeItem('Token');
         // toast.success('Logout Successfully!')
-        window.location.replace("/admin/login");
+        window.location.replace("/");
 
     }
     
@@ -66,10 +66,10 @@ const Admin_Sidebar = () => {
                         </NavLink>
                     </li> 
                      <li className="menu">
-                        <NavLink to="/admin/employer" data-active={admin_url.includes(pathname)?"true":"false"} aria-expanded={admin_url.includes(pathname)?"true":"false"} className="dropdown-toggle">
+                        <NavLink to="/admin/product" data-active={admin_url.includes(pathname)?"true":"false"} aria-expanded={admin_url.includes(pathname)?"true":"false"} className="dropdown-toggle">
                             <div className="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Recruiters</span>
+                                <span>Product List</span>
                             </div>
                         </NavLink>
                     </li>

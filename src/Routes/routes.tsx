@@ -5,6 +5,7 @@ import AdminLogin from '../pages/Login/login';
 import AdminMiddleware from '../Components/Middleware/Admin';
 import AdminLayout from '../Layout/Admin_Dashboard';
 import AdminDashboard from '../pages/Dashboard';
+import ProductList from '../pages/ProductList/ProductList';
 const Admin_Routes = () => {
 
     return (
@@ -17,6 +18,7 @@ const Admin_Routes = () => {
                 <Route element={<AdminMiddleware />}>
                     <Route element={<AdminLayout />} path="/admin/">
                         <Route path="dashboard" element={<AdminDashboard />} />
+                        <Route path="product" element={<ProductList />} />
                     </Route>
 
                 </Route>

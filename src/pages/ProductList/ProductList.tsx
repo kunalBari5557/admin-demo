@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import AdminLineCharts from "../Componant"
 
-const AdminDashboard = () => {
+const ProductList = () => {
   const Navigate = useNavigate();
   const [data, setData] = useState<any>([]);
   const [employerCount, setEmployerCount] = useState(0);
@@ -261,4 +261,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default ProductList;
