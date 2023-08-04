@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 const AdminDashboard = () => {
   const Navigate = useNavigate();
   const [productList, setProductList] = useState<any>([]);
+  const [usersList, setUsersList] = useState<any>([]);
   const productListLength = productList.length;
+  const usersListLength = usersList.length;
 
   const [candidateCount, setCandidateCount] = useState(0);
   const [jobCount, setJobCount] = useState(0);
@@ -15,7 +17,7 @@ const AdminDashboard = () => {
 
   const productListData = () => {
     axios
-      .get(`${process.env.REACT_APP_URL}products`, {
+      .get(`${process.env.REACT_APP_URL}/products`, {
         headers: { token: `${localStorage.getItem("Token")}` },
       })
       .then((res) => {
@@ -35,8 +37,31 @@ const AdminDashboard = () => {
       });
   };
 
+  const usersListData = () => {
+    axios
+      .get(`${process.env.REACT_APP_URL}/users`, {
+        headers: { token: `${localStorage.getItem("Token")}` },
+      })
+      .then((res) => {
+        console.log(res);
+
+        if (res.status === 200) {
+            setUsersList(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.msg === "Unauthorized!") {
+          localStorage.clear();
+          Navigate("/admin/login");
+        } else {
+          //   setApierror1(err.response.data.msg);
+        }
+      });
+  };
+
   useEffect(() => {
     productListData();
+    usersListData()
   }, []);
 
   return (
@@ -72,6 +97,7 @@ const AdminDashboard = () => {
             </a>
           </div>
           <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+          <a href="/admin/users">
             <div className="widget widget-one_hybrid widget-followers mt-4">
               <div className="widget-heading">
                 <div className="w-icon">
@@ -93,10 +119,11 @@ const AdminDashboard = () => {
                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                   </svg>
                 </div>
-                <p className="w-value">{candidateCount}</p>
-                <h5>Candidates</h5>
+                <p className="w-value">{usersListLength}</p>
+                <h5>Users</h5>
               </div>
             </div>
+            </a>
           </div>
           <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
             <div className="widget widget-one_hybrid widget-referral mt-4">

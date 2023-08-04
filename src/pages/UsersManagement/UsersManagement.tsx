@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import AdminDashboard from "../Dashboard";
 // import AdminLineCharts from "../Componant"
 
-const ProductList = () => {
+const UsersManagement = () => {
   const Navigate = useNavigate();
   const [data, setData] = useState<any>([]);
   const [expandedItems, setExpandedItems] = useState<any>([]);
 
   const dashboard = () => {
     axios
-      .get(`${process.env.REACT_APP_URL}/products`, {
+      .get(`${process.env.REACT_APP_URL}/users`, {
         headers: { token: `${localStorage.getItem("Token")}` },
       })
       .then((res) => {
@@ -65,7 +65,7 @@ const ProductList = () => {
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div className="widget widget-table-two">
               <div className="widget-heading">
-                <h5>Product List</h5>
+                <h5>Users Management</h5>
               </div>
               <div className="widget-content">
                 <div className="table-responsive">
@@ -76,16 +76,16 @@ const ProductList = () => {
                           <div className="th-content">Sr. No</div>
                         </th>
                         <th>
-                          <div className="th-content">Category</div>
+                          <div className="th-content">Name</div>
                         </th>
                         <th>
-                          <div className="th-content">Description</div>
+                          <div className="th-content">Username</div>
                         </th>
                         <th>
-                          <div className="th-content">Image</div>
+                          <div className="th-content">Email</div>
                         </th>
                         <th>
-                          <div className="th-content th-heading">Price</div>
+                          <div className="th-content th-heading">Phone Number</div>
                         </th>
                         <th>
                           <div className="th-content">Date</div>
@@ -94,7 +94,7 @@ const ProductList = () => {
                     </thead>
                     <tbody>
                       {/* <>{console.log(recentAppliedjobs)}</> */}
-                      {data.map((item: any, index: number) => (
+                      {data?.map((item: any, index: number) => (
                         <tr key={index}>
                              <td>
                             <div className="td-content customer-name">
@@ -103,36 +103,19 @@ const ProductList = () => {
                           </td>
                           <td>
                             <div className="td-content customer-name">
-                              <img src="/assets/img/90x90.jpg" alt="avatar" />
-                              {item.category}
-                            </div>
-                          </td>
-                          <td>
-                            <div className="td-content">
-                              {expandedItems.includes(index) ||
-                              item.description.length <= 20 ? (
-                                item.description
-                              ) : (
-                                <>
-                                  {item.description.slice(0, 20)}...
-                                  <a
-                                    onClick={() => toggleExpansion(index)}
-                                    className="read-more-link"
-                                    style={{ color: "blue" }}
-                                  >
-                                    Read More
-                                  </a>
-                                </>
-                              )}
+                              {item.name?.firstname} {item.name?.lastname}
                             </div>
                           </td>
                           <td>
                             <div className="td-content product-brand">
-                              <img src={item.image} alt="avatar" />
+                              {item?.username}
                             </div>
                           </td>
                           <td>
-                            <div className="td-content">{item.price}</div>
+                            <div className="td-content">{item?.email}</div>
+                          </td>
+                          <td>
+                            <div className="td-content">{item?.phone}</div>
                           </td>
                           <td>
                             <div className="td-content pricing">
@@ -155,4 +138,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default UsersManagement;
