@@ -6,17 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const Navigate = useNavigate();
-  const [data, setData] = useState<any>([]);
-  const [employerCount, setEmployerCount] = useState(0);
+  const [productList, setProductList] = useState<any>([]);
+  const productListLength = productList.length;
+
   const [candidateCount, setCandidateCount] = useState(0);
   const [jobCount, setJobCount] = useState(0);
   const [appliedJobCount, setAppliedJobCount] = useState(0);
-  const [employerMonthChart, setEmployerMonthChart] = useState([]);
-  const [recentAppliedjobs, setRecentAppliedjobs] = useState([]);
-  const [expanded, setExpanded] = useState(false);
-  const [expandedItems, setExpandedItems] = useState<any>([]);
 
-  const dashboard = () => {
+  const productListData = () => {
     axios
       .get(`${process.env.REACT_APP_URL}products`, {
         headers: { token: `${localStorage.getItem("Token")}` },
@@ -25,13 +22,7 @@ const AdminDashboard = () => {
         console.log(res);
 
         if (res.status === 200) {
-          setData(res.data);
-          // setEmployerCount(res.data.employerTotalCount);
-          // setCandidateCount(res.data.candidateTotalCount);
-          // setAppliedJobCount(res.data.appliedjobsTotalCount);
-          // setJobCount(res.data.jobsTotalCount);
-          // setEmployerMonthChart(res.data.employerPerMonthCount);
-          // setRecentAppliedjobs(res.data.recentAppliedJobs);
+            setProductList(res.data);
         }
       })
       .catch((err) => {
@@ -45,48 +36,40 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    dashboard();
+    productListData();
   }, []);
-
-  const toggleExpansion = (index: any) => {
-    if (expandedItems.includes(index)) {
-      setExpandedItems(
-        expandedItems.filter((itemIndex: any) => itemIndex !== index)
-      );
-    } else {
-      setExpandedItems([...expandedItems, index]);
-    }
-  };
 
   return (
     <>
       <div className="layout-spacing w-100">
         <div className="row">
           <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-            <div className="widget widget-one_hybrid widget-engagement mt-4">
-              <div className="widget-heading">
-                <div className="w-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-user-check"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="8.5" cy="7" r="4"></circle>
-                    <polyline points="17 11 19 13 23 9"></polyline>
-                  </svg>
+            <a href="/admin/product">
+              <div className="widget widget-one_hybrid widget-engagement mt-4">
+                <div className="widget-heading">
+                  <div className="w-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-user-check"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="8.5" cy="7" r="4"></circle>
+                      <polyline points="17 11 19 13 23 9"></polyline>
+                    </svg>
+                  </div>
+                  <p className="w-value">{productListLength}</p>
+                  <h5>Products</h5>
                 </div>
-                <p className="w-value">{employerCount}</p>
-                <h5>Recruiters</h5>
               </div>
-            </div>
+            </a>
           </div>
           <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
             <div className="widget widget-one_hybrid widget-followers mt-4">
@@ -173,85 +156,6 @@ const AdminDashboard = () => {
 
               <div className="widget-content">
                 {/* <AdminLineCharts data={employerMonthChart} /> */}
-              </div>
-            </div>
-          </div>
-
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div className="widget widget-table-two">
-              <div className="widget-heading">
-                <h5>Product List</h5>
-              </div>
-              <div className="widget-content">
-                <div className="table-responsive">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>
-                          <div className="th-content">Category</div>
-                        </th>
-                        <th>
-                          <div className="th-content">Description</div>
-                        </th>
-                        <th>
-                          <div className="th-content">Image</div>
-                        </th>
-                        <th>
-                          <div className="th-content th-heading">Price</div>
-                        </th>
-                        <th>
-                          <div className="th-content">Date</div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {/* <>{console.log(recentAppliedjobs)}</> */}
-                      {data.map((item: any, index: number) => (
-                        <tr key={index}>
-                          <td>
-                            <div className="td-content customer-name">
-                              <img src="/assets/img/90x90.jpg" alt="avatar" />
-                              {item.category}
-                            </div>
-                          </td>
-                          <td>
-                            <div className="td-content">
-                              {expandedItems.includes(index) ||
-                              item.description.length <= 20 ? (
-                                item.description
-                              ) : (
-                                <>
-                                  {item.description.slice(0, 20)}...
-                                  <a
-                                    onClick={() => toggleExpansion(index)}
-                                    className="read-more-link"
-                                  >
-                                    Read More
-                                  </a>
-                                </>
-                              )}
-                            </div>
-                          </td>
-                          <td>
-                            <div className="td-content product-brand">
-                              <img src={item.image} alt="avatar" />
-                            </div>
-                          </td>
-                          <td>
-                            <div className="td-content">{item.price}</div>
-                          </td>
-                          <td>
-                            <div className="td-content pricing">
-                              <span>
-                                {moment(item.createdAt).format("DD-MM-YYYY")}
-                              </span>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
