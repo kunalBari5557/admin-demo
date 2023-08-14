@@ -18,9 +18,6 @@ const Page_Not_Found = () => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col-md-4 mr-auto mt-5 text-md-left text-center">
-                    <a href="index.html" className="ml-md-5">
-                        <img alt="img-404" src="/assets/img/90x90.jpg" className="theme-logo_404"/>
-                    </a>
                 </div>
             </div>
         </div>
