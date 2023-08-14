@@ -38,25 +38,23 @@ const AdminLogin = () => {
 
     onSubmit: (values: Login, action: any) => {
       axios
-        .post(`${process.env.REACT_APP_URL}auth/login`, values)
+        .post(`${process.env.REACT_APP_URL}/auth/login`, values)
         .then((res) => {
           console.log("res", res);
 
           if (res.status === 200) {
-            // toast.success(res.data.message)
+            toast.success(res.data.message)
             localStorage.setItem("Token", res.data.token);
             localStorage.setItem("is_loading", "true");
             Navigate("/admin/dashboard");
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log("err",err);
           toast.error(err.response.data.message);
         });
     },
   });
-
-  console.log("login", login);
 
   useEffect(() => {
     // Create a new <link> element
