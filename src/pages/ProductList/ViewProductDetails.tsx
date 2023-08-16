@@ -7,11 +7,11 @@ const ViewProductDetails = () => {
   const stateData = location.state;
 
   //Read more functionality
-  const maxLength = 30; // Define the maximum length before showing "Read More"
+  const maxLength = 25; // Define the maximum length before showing "Read More"
   const initialDescription = stateData.description;
   const [description, setDescription] = useState(initialDescription);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  
+
   const initialTitle = stateData.title;
   const [title, setTitle] = useState(initialTitle);
   const [showTitle, setShowTitle] = useState(false);
