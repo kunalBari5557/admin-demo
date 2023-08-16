@@ -9,10 +9,11 @@ const ViewProductDetails = () => {
   //Read more functionality
   const maxLength = 30; // Define the maximum length before showing "Read More"
   const initialDescription = stateData.description;
-  const initialTitle = stateData.title;
   const [description, setDescription] = useState(initialDescription);
-  const [title, setTitle] = useState(initialTitle);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  
+  const initialTitle = stateData.title;
+  const [title, setTitle] = useState(initialTitle);
   const [showTitle, setShowTitle] = useState(false);
 
   const toggleTitle = () => {
