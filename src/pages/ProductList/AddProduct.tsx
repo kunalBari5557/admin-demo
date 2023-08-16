@@ -59,7 +59,6 @@ const AddProduct = () => {
           });
       }
   });
-console.log("product",product)
   return (
     <>
       <div className="w-100">

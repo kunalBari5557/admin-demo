@@ -19,10 +19,9 @@ export const ProductSchema = Yup.object({
 });
 
 export const ProductUpdateSchema = Yup.object({
-    title: Yup.string().max(10,"Title must not be greater than 10 characters.").required("Title field is required."),
+    title: Yup.string().max(100,"Title must not be greater than 100 characters.").required("Title field is required."),
     price: Yup.string().max(10,"Price must not be greater than 10 characters.").required("Price field is required."),
     description: Yup.string().max(255,"Title must not be greater than 255 characters.").required("Title field is required."),
     category: Yup.string().max(255,"Title must not be greater than 255 characters.").required("Title field is required."),
     // image: Yup.string().max(255,"Title must not be greater than 255 characters.").required("Title field is required."),
-    rate_id: Yup.string().max(255,"Title must not be greater than 255 characters.").required("Title field is required."),
 });

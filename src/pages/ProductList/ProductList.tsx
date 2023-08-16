@@ -19,8 +19,6 @@ const ProductList = () => {
         headers: { token: `${localStorage.getItem("Token")}` },
       })
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) {
           setData(res.data);
         }
@@ -154,7 +152,6 @@ const ProductList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* <>{console.log(recentAppliedjobs)}</> */}
                       {data.map((item: any, index: number) => (
                         <tr key={index}>
                              <td>

@@ -10,6 +10,7 @@ import UsersManagement from '../pages/UsersManagement/UsersManagement';
 import Page_Not_Found from '../Components/404_page';
 import AddProduct from '../pages/ProductList/AddProduct';
 import ViewProductDetails from '../pages/ProductList/ViewProductDetails';
+import ProductListEdit from '../pages/ProductList/EditProductList';
 const Admin_Routes = () => {
 
     return (
@@ -26,6 +27,7 @@ const Admin_Routes = () => {
                         <Route path="product" element={<ProductList />} />
                         <Route path="product/details" element={<ViewProductDetails />} />
                         <Route path="product/add" element={<AddProduct />} />
+                        <Route path="product/edit" element={<ProductListEdit />} />
                     </Route>
                     <Route path="*" element={<Page_Not_Found />} />
                 </Route>
