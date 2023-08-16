@@ -8,6 +8,7 @@ import AdminDashboard from '../pages/Dashboard';
 import ProductList from '../pages/ProductList/ProductList';
 import UsersManagement from '../pages/UsersManagement/UsersManagement';
 import Page_Not_Found from '../Components/404_page';
+import AddProduct from '../pages/ProductList/AddProduct';
 const Admin_Routes = () => {
 
     return (
@@ -22,6 +23,7 @@ const Admin_Routes = () => {
                     <Route path="users" element={<UsersManagement />} />
                         <Route path="dashboard" element={<AdminDashboard />} />
                         <Route path="product" element={<ProductList />} />
+                        <Route path="product/add" element={<AddProduct />} />
                     </Route>
                     <Route path="*" element={<Page_Not_Found />} />
                 </Route>
