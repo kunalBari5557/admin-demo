@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProductSchema } from "../../ValidationSchema";
+import { Product, createProduct } from "../../Redux/features/products/getAllProducts";
+import { useDispatch } from "react-redux";
 // import { EmployerUpdateSchema } from '../../../Validation Schema';
 
 interface Employer {
@@ -16,6 +18,7 @@ interface Employer {
 
 const AddProduct = () => {
   const Navigate = useNavigate();
+  const dispatch = useDispatch<any>();
 
   const [initialValues, setInitialValues] = useState<Employer>({
     title: "",
@@ -31,33 +34,30 @@ const AddProduct = () => {
       setSelectedFile(e.target.files[0]);
     }
   };
+
   const product = useFormik({
     initialValues,
     enableReinitialize: true,
     validationSchema: ProductSchema,
-
-    onSubmit: (values: Employer, action: any) => {
-        let formData = new FormData();
-        formData.append("title", values.title); //append the values with key, value pair
-        formData.append("price", values.price); //append the values with key, value pair
-        formData.append("description", values.description);
-        formData.append("category", values.category);
-        formData.append("image", values.image);
-
-        axios
-          .post(`${process.env.REACT_APP_URL}/products`, formData, {
-            headers: { token: `${localStorage.getItem("Token")}` },
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              Navigate("/admin/product", { state: res.data.msg });
-            }
-          })
-          .catch((err) => {
-            toast.error(err.response.data.msg);
-            // Navigate('/admin/product');
-          });
-      }
+  
+    onSubmit: (values: Employer) => {
+      let formData:any = new FormData();
+      formData.append("title", values.title);
+      formData.append("price", values.price);
+      formData.append("description", values.description);
+      formData.append("category", values.category);
+      formData.append("image", values.image);
+  
+      dispatch(createProduct(formData))
+        .then((result:any) => {
+          if (createProduct.fulfilled.match(result)) {
+            Navigate("/admin/product", { state: result.payload.msg });
+          }
+        })
+        .catch((error:any) => {
+          toast.error(error.response.data.msg);
+        });
+    },
   });
   return (
     <>

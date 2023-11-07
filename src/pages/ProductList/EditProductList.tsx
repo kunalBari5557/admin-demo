@@ -4,17 +4,12 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProductUpdateSchema } from "../../ValidationSchema";
-
-interface Employer {
-    title: string;
-    price: string;
-    description: string;
-    category: string;
-    image: string;
-}
+import { Product, updateProductById } from "../../Redux/features/products/getAllProducts";
+import { useDispatch } from "react-redux";
 
 const ProductListEdit = () => {
     const location = useLocation();
+    const dispatch = useDispatch<any>();
     const stateData = location.state;
     const Navigate = useNavigate();
 
@@ -25,44 +20,30 @@ const ProductListEdit = () => {
         }
     };
 
-    const productsEdit = useFormik<Employer>({
+    const productsEdit = useFormik<Product>({
         initialValues: {
-            title: stateData.title,
-            price: stateData.price,
-            description: stateData.description,
-            category: stateData.category,
-            image: stateData.image,
+          id: stateData.id, 
+          title: stateData.title,
+          price: stateData.price,
+          description: stateData.description,
+          category: stateData.category,
+          image: stateData.image,
+          rating: stateData.rating, 
         },
         enableReinitialize: true,
         validationSchema: ProductUpdateSchema,
+      
+        onSubmit: (values: Product, action: any) => {
+          dispatch(updateProductById({ productId: stateData.id, updatedProduct: values }))
+            .then(() => {
+              Navigate("/admin/product", { state: 'Product updated successfully' });
+            })
+            .catch((error:any) => {
+              toast.error(error.message);
+            });
+        },
+      });
 
-        onSubmit: (values: Employer, action: any) => {
-            let formData = new FormData();
-            formData.append("title", values.title); //append the values with key, value pair
-            formData.append("price", values.price); //append the values with key, value pair
-            formData.append("description", values.description);
-            formData.append("category", values.category);
-            formData.append("image", values.image);
-
-            axios
-                .put(
-                    `${process.env.REACT_APP_URL}/products/${stateData.id}`,
-                    formData,
-                    { headers: { token: `${localStorage.getItem("Token")}` } }
-                )
-                .then((res) => {
-                    if (res.status === 200) {
-                        Navigate("/admin/product", { state: res.data.msg });
-                    }
-                })
-                .catch((err) => {
-                    toast.error(err.response.data.msg);
-                    // Navigate('/admin/product');
-                });
-        }
-    });
-
-    console.log("productsEdit",productsEdit)
     return (
         <>
             <div className="w-100">

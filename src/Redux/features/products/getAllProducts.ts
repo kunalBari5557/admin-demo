@@ -1,8 +1,7 @@
-// productsSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   price: number;
@@ -29,10 +28,35 @@ const initialState: ProductsState = {
   error: null,
 };
 
+export const createProduct = createAsyncThunk('products/createProduct', async (newProduct: Product) => {
+  const response = await axios.post('https://fakestoreapi.com/products', newProduct);
+  return response.data;
+});
+
+
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get('https://fakestoreapi.com/products');
   return response.data;
 });
+
+export const updateProductById = createAsyncThunk<void, { productId: number, updatedProduct: Product }, { rejectValue: string }>(
+  'products/updateProductById',
+  async ({ productId, updatedProduct }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`https://fakestoreapi.com/products/${productId}`, updatedProduct, {
+        headers: { token: `${localStorage.getItem("Token")}` },
+      });
+
+      if (response.status === 200) {
+        return;
+      } else {
+        return rejectWithValue('Failed to update the product.');
+      }
+    } catch (error) {
+      return rejectWithValue('Failed to update the product.');
+    }
+  }
+);
 
 export const deleteProductById = createAsyncThunk<void, number, { rejectValue: string }>(
     'products/deleteProductById',
@@ -59,6 +83,18 @@ export const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+     .addCase(createProduct.pending, (state) => {
+       state.loading = 'pending';
+      })
+     .addCase(createProduct.fulfilled, (state, action) => {
+       state.loading = 'fulfilled';
+       state.products.push(action.payload); 
+       state.error = null;
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+       state.loading = 'rejected';
+       state.error = action.error.message;
+      })
       .addCase(fetchProducts.pending, (state) => {
         state.loading = 'pending';
       })
@@ -81,6 +117,16 @@ export const productsSlice = createSlice({
       .addCase(deleteProductById.rejected, (state, action) => {
         state.loading = 'rejected';
         state.error = action.error.message;
+      })
+      .addCase(updateProductById.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(updateProductById.fulfilled, (state) => {
+        state.loading = 'fulfilled';
+        state.error = null;
+      })
+      .addCase(updateProductById.rejected, (state, action) => {
+        state.loading = 'rejected';
       });
   },
 });
