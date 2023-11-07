@@ -77,7 +77,6 @@ const ProductList = () => {
     });
   };
 
-
   return (
     <>
       <div className="layout-spacing w-100">
