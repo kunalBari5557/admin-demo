@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ProductSchema } from "../../ValidationSchema";
 import { Product, createProduct } from "../../Redux/features/products/getAllProducts";
 import { useDispatch } from "react-redux";
-// import { EmployerUpdateSchema } from '../../../Validation Schema';
 
 interface Employer {
   title: string;
