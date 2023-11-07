@@ -11,6 +11,7 @@ import Page_Not_Found from '../Components/404_page';
 import AddProduct from '../pages/ProductList/AddProduct';
 import ViewProductDetails from '../pages/ProductList/ViewProductDetails';
 import ProductListEdit from '../pages/ProductList/EditProductList';
+import AdminSignup from '../pages/Signup/Signup';
 const Admin_Routes = () => {
 
     return (
@@ -19,6 +20,7 @@ const Admin_Routes = () => {
                 {/* <Route path="/" element={<Loader />} /> */}
                 <Route element={<AdminLoginMiddleware />}>
                     <Route path="/" element={<AdminLogin />} />
+                    <Route path="/singup" element={<AdminSignup />} />
                 </Route>
                 <Route element={<AdminMiddleware />}>
                     <Route element={<AdminLayout />} path="/admin/">

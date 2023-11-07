@@ -5,37 +5,25 @@ import { useNavigate } from "react-router-dom";
 import AdminDashboard from "../Dashboard";
 import { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProductById, fetchProducts } from "../../Redux/features/products/getAllProducts";
 
 // import AdminLineCharts from "../Componant"
 
 const ProductList = () => {
   const Navigate = useNavigate();
+  const dispatch = useDispatch<any>();
+  const products = useSelector((state:any) => state.productsState.products);
+  
   const [data, setData] = useState<any>([]);
+  console.log(data);
+  
   const [expandedItems, setExpandedItems] = useState<any>([]);
 
-  const ProductListData = () => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/products`, {
-        headers: { token: `${localStorage.getItem("Token")}` },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setData(res.data);
-        }
-      })
-      .catch((err) => {
-        if (err.response.data.msg === "Unauthorized!") {
-          localStorage.clear();
-          Navigate("/admin/login");
-        } else {
-          //   setApierror1(err.response.data.msg);
-        }
-      });
-  };
-
   useEffect(() => {
-    ProductListData();
-  }, []);
+    dispatch(fetchProducts());
+    setData(products)
+  }, [dispatch]);
 
   const toggleExpansion = (index: any) => {
     if (expandedItems.includes(index)) {
@@ -58,7 +46,7 @@ const ProductList = () => {
   };
 
   //delete product
-  const HandleDelete = (e: any) => {
+  const HandleDelete = (productId: number) => {
     Swal.fire({
       title: "Do you want to Delete this Record?",
       icon: "error",
@@ -66,23 +54,23 @@ const ProductList = () => {
       confirmButtonColor: "#DC3741",
       confirmButtonText: "Delete",
     }).then((result: any) => {
+      console.log(result);
+      
       if (result.isConfirmed === true) {
-        axios
-          .delete(`${process.env.REACT_APP_URL}/products/${e}`, {
-            headers: { token: `${localStorage.getItem("Token")}` },
-          })
-          .then((res) => {
-            if (res.status === 200) {
+        dispatch(deleteProductById(productId))
+          .then((res:any) => {
+            console.log("res",res);
+            
+            if (res?.meta?.requestStatus === "fulfilled") {
               Swal.fire({
-                title: "Deleted Sucessfully.",
+                title: "Deleted Successfully.",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 2000,
               });
-              ProductListData();
             }
           })
-          .catch((err) => {
+          .catch((err:string) => {
             console.log(err);
           });
       }

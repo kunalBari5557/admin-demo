@@ -84,6 +84,15 @@ const Admin_Sidebar = () => {
                     </li>
 
                     <li className="menu">
+                        <NavLink to="/admin/demo"  data-active={pathname==="/admin/demo"?"true":"false"} aria-expanded={pathname==="/admin/demo"?"true":"false"} className="dropdown-toggle">
+                            <div className="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <span>Demo Management</span>
+                            </div>
+                        </NavLink>
+                    </li>
+                    
+                    {/* <li className="menu">
                         <a href="#datatables" data-toggle="collapse" aria-expanded={Master.includes(pathname)?"true":"false"} className={Master.includes(pathname)?"dropdown-toggle collapsed bg-white":"dropdown-toggle"}>
 
                             <div className="">
@@ -184,98 +193,7 @@ const Admin_Sidebar = () => {
                             </li>
 
                         </ul>
-                    </li>
-
-                    <li className="menu">
-                        <NavLink to="/admin/onboarding"  data-active={Onboarding.includes(pathname)?"true":"false"} aria-expanded={Onboarding.includes(pathname)?"true":"false"} className="dropdown-toggle">
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Onboarding</span>
-                            </div>
-                        </NavLink>
-                    </li>
-
-                    <li className="menu">
-                        <NavLink to="/admin/job"  data-active={Job.includes(pathname)?"true":"false"} aria-expanded={Job.includes(pathname)?"true":"false"} className="dropdown-toggle">
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Jobs</span>
-                            </div>
-                        </NavLink>
-                    </li>
-                    
-                    <li className="menu">
-                        <NavLink to="/admin/report"  data-active={pathname==="/admin/report"?"true":"false"} aria-expanded={pathname==="/admin/report"?"true":"false"} className="dropdown-toggle">
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Admin Logs</span>
-                            </div>
-                        </NavLink>
-                    </li>
-
-                    <li className="menu">
-                        <NavLink to="/admin/employer-report" data-active={pathname==="/admin/employer-report"?"true":"false"} aria-expanded={pathname==="/admin/employer-report"?"true":"false"} className="dropdown-toggle">
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Recruiter Logs</span>
-                            </div>
-                        </NavLink>
-                    </li>
-
-                    <li className="menu">
-                        <NavLink to="/admin/candidate-report"  data-active={pathname==="/admin/candidate-report"?"true":"false"} aria-expanded={pathname==="/admin/candidate-report"?"true":"false"} className="dropdown-toggle">
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Candidates Logs</span>
-                            </div>
-                        </NavLink>
-                    </li>
-
-                    <li className="menu">
-                    <a href="#report" data-toggle="collapse" aria-expanded={Report.includes(pathname)?"true":"false"} className={Report.includes(pathname)?"dropdown-toggle collapsed bg-white":"dropdown-toggle"}>
-
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin='round' className="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                                <span>Reports</span>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </div>
-                        </a>
-
-                        <ul className={Report.includes(pathname)?"collapse submenu list-unstyled show":"collapse submenu list-unstyled"} id="report" data-parent="#accordionExample">
-                            <li>
-                                <NavLink to="/admin/job-seen" data-active={pathname==="/admin/job-seen"?"true":"false"} aria-expanded={pathname==="/admin/job-seen"?"true":"false"} className="dropdown-toggle">
-                                    <span>Which Job Seen By Him</span>
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/admin/mostly-seen" data-active={MostlySeen.includes(pathname)?"true":"false"} aria-expanded={MostlySeen.includes(pathname)?"true":"false"} className="dropdown-toggle">
-                                    <span>Which Job Mostly seen</span>
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/admin/applied-candidate" data-active={pathname==="/admin/applied-candidate"?"true":"false"} aria-expanded={pathname==="/admin/applied-candidate"?"true":"false"} className="dropdown-toggle">
-                                    <span>Which Jobs Applied by Candidates</span>
-                                </NavLink>
-                            </li>
-
-                            <li>
-                                <NavLink to="/admin/ipbased-location" data-active={pathname==="/admin/ipbased-location"?"true":"false"} aria-expanded={pathname==="/admin/ipbased-location"?"true":"false"} className="dropdown-toggle">
-                                    <span>Ip Based Location For Jobs Seen</span>
-                                </NavLink>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li className="menu">
-                        <NavLink to="/admin/change-password"  data-active={pathname==="/admin/change-password"?"true":"false"} aria-expanded={pathname==="/admin/change-password"?"true":"false"} className="dropdown-toggle">
-                            <div className="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span>Change Password</span>
-                            </div>
-                        </NavLink>
-                    </li>
+                    </li> */}
                     
                     <li className="menu">
                         <div className="dropdown-toggle" onClick={()=>LogoutAdmin()}>

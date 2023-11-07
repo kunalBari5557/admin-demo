@@ -16,8 +16,6 @@ const UsersManagement = () => {
         headers: { token: `${localStorage.getItem("Token")}` },
       })
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) {
           setData(res.data);
         }
